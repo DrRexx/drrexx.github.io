@@ -1,0 +1,662 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Peppermint Boys Desktop — Centered Taskbar</title>
+
+<link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+
+<style>
+  /* ============================================================
+   MODERN WINDOWS 95 THEME — FULL REWRITE
+   Sharp corners, beveled UI, flat colors, modern proportions
+   ============================================================ */
+html, body {
+  font-size: 18px;
+}
+:root{
+  --bg-1:#c0c0c0;
+  --bg-2:#c0c0c0;
+
+  --win95-light:#ffffff;
+  --win95-mid:#c0c0c0;
+  --win95-dark:#808080;
+  --win95-darker:#000000;
+
+  --window-bg:#ffffff;
+  --task-right-w:180px;
+
+  --font-ui: "VT323", monospace;
+
+}
+
+/* GLOBAL RESET */
+html,body{
+  height:100%;
+  margin:0;
+  font-family:var(--font-ui);
+  background:var(--bg-1);
+  color:#000;
+  overflow:hidden;
+}
+
+/* Remove all rounded corners globally */
+* {
+  border-radius:0 !important;
+}
+
+/* Remove CRT + neon haze entirely */
+body::before,
+.neon-haze {
+  display:none !important;
+}
+
+/* DESKTOP */
+.desktop {
+  position:relative;
+  width:100%;
+  height:100vh;
+  padding:20px;
+  box-sizing:border-box;
+  display:flex;
+  gap:18px;
+}
+
+/* BRAND (kept minimal + flat) */
+.brand-top {
+  position:absolute;
+  top:25px;
+  left:25px;
+  z-index:999;
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+  pointer-events:none;
+}
+
+.brand {
+  font-family:var(--font-ui);
+  font-size:25px;
+  font-weight:bold;
+  color:#000;
+}
+
+.brand-sub {
+  font-family:var(--font-ui);
+  font-size:16px;
+  opacity:0.8;
+}
+
+/* MAIN AREA */
+.main {
+  flex:1;
+  position:relative;
+  overflow:hidden;
+  padding:18px;
+  background:var(--win95-mid);
+  border:2px solid var(--win95-dark);
+  border-right-color:var(--win95-light);
+  border-bottom-color:var(--win95-light);
+}
+
+/* ============================================================
+   TASKBAR — Modern Windows 95
+   ============================================================ */
+
+.taskbar {
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:18px;
+  height:60px;
+
+  background:var(--win95-mid);
+
+  border:2px solid var(--win95-dark);
+  border-right-color:var(--win95-light);
+  border-bottom-color:var(--win95-light);
+
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:6px 10px;
+}
+
+/* Left area (icons) */
+.task-left {
+  display:flex;
+  gap:12px;
+  align-items:center;
+  justify-content:center;
+  flex:1 1 auto;
+  overflow-x:auto;
+  padding-bottom:4px;
+}
+
+/* Right area (label) */
+.task-right {
+  flex:0 0 var(--task-right-w);
+  width:var(--task-right-w);
+  display:flex;
+  align-items:center;
+  justify-content:flex-end;
+  padding-right:12px;
+  font-size:13px;
+  font-family:var(--font-ui);
+  color:#000;
+}
+
+/* Scrollbar */
+.task-left::-webkit-scrollbar { height:8px; }
+.task-left::-webkit-scrollbar-thumb {
+  background:var(--win95-dark);
+}
+
+/* ============================================================
+   APP ICONS — Modern Win95
+   ============================================================ */
+
+.app-icon {
+  width:56px;
+  height:56px;
+  background:var(--win95-mid);
+
+  border:2px solid var(--win95-dark);
+  border-right-color:var(--win95-light);
+  border-bottom-color:var(--win95-light);
+
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+
+  font-family:var(--font-ui);
+  font-size:18px;
+  color:#000;
+  cursor:pointer;
+  user-select:none;
+}
+
+.app-icon:hover {
+  background:var(--win95-light);
+}
+
+.app-icon svg {
+  width:26px;
+  height:26px;
+  fill:#000;
+  margin-bottom:4px;
+}
+
+/* ============================================================
+   WINDOWS — Modern Win95
+   ============================================================ */
+
+.window {
+  position:absolute;
+  width:640px;
+  max-width:calc(100% - 48px);
+  height:460px;
+  background:var(--window-bg);
+
+  border:2px solid var(--win95-dark);
+  border-right-color:var(--win95-light);
+  border-bottom-color:var(--win95-light);
+
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+  touch-action:none;
+}
+
+.window.hidden {
+  display:none;
+}
+
+.titlebar {
+  height:32px;
+  background:#000080;
+  color:white;
+  font-family:var(--font-ui);
+  font-size:20px;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding:0 10px;
+  cursor:grab;
+}
+
+.titlebar:active {
+  cursor:grabbing;
+}
+
+.title {
+  flex:1;
+  user-select:none;
+}
+
+/* WINDOW BUTTONS */
+.controls {
+  display:flex;
+  gap:6px;
+}
+
+.btn {
+  width:22px;
+  height:22px;
+  background:var(--win95-mid);
+
+  border:2px solid var(--win95-dark);
+  border-right-color:var(--win95-light);
+  border-bottom-color:var(--win95-light);
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  font-size:18px;
+  color:#000;
+  cursor:pointer;
+}
+
+.btn:hover {
+  background:var(--win95-light);
+}
+
+.btn-close {
+  background:#c05050;
+  border-color:#000;
+  color:white;
+}
+
+/* CONTENT AREA */
+.content {
+  padding:16px;
+  flex:1;
+  overflow:auto;
+  background:var(--win95-light);
+  color:#000;
+}
+
+/* ============================================================
+   CARDS / GRID / PHOTOS — Flattened Win95
+   ============================================================ */
+
+.grid-3 {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+}
+
+.card {
+  background:var(--win95-light);
+  padding:12px;
+
+  border:2px solid var(--win95-dark);
+  border-right-color:var(--win95-light);
+  border-bottom-color:var(--win95-light);
+}
+
+.photo {
+  height:120px;
+  background:var(--win95-mid);
+  border:2px solid var(--win95-dark);
+  border-right-color:var(--win95-light);
+  border-bottom-color:var(--win95-light);
+}
+
+/* FOOTER */
+.neon-footer {
+  margin-top:14px;
+  padding:10px;
+  background:var(--win95-mid);
+
+  border:2px solid var(--win95-dark);
+  border-right-color:var(--win95-light);
+  border-bottom-color:var(--win95-light);
+
+  font-family:var(--font-ui);
+  font-size:16px;
+  color:#000;
+  display:flex;
+  justify-content:space-between;
+}
+
+/* ============================================================
+   MOBILE
+   ============================================================ */
+
+@media (max-width:900px){
+  .desktop{ padding:12px; flex-direction:column; }
+  .brand-top{ top:12px; left:12px; }
+  .main{ padding:12px; }
+  .taskbar{ right:12px; left:0; bottom:12px; height:56px; padding:6px 10px; }
+  .task-right{ display:none; }
+  .task-left{ justify-content:center; }
+  .window{ width:calc(100% - 36px); left:18px !important; right:18px; }
+}
+  
+
+</style>
+</head>
+<body>
+  
+  <div class="neon-haze" aria-hidden="true"></div>
+
+  <div class="desktop" id="desktop">
+    <!-- Brand moved to top-left overlay -->
+    <div class="brand-top" aria-hidden="false">
+      <div class="brand">PEPPERMINT BOYS</div>
+      <div class="brand-sub">Bigger than the beetles.</div>
+    </div>
+
+    <div class="main" id="main">
+      <!-- BIO app -->
+      <div class="window hidden" id="win-bio" style="left:120px; top:80px;">
+        <div class="titlebar" data-drag>
+          <div class="title">Bio</div>
+          <div class="controls">
+            <button class="btn btn-close" title="Close" aria-label="Close Bio">✕</button>
+          </div>
+        </div>
+        <div class="content">
+          <div style="display:flex;gap:14px;align-items:center">
+            
+            <div>
+              <h2>Peppermint Boys</h2>
+              <p style="margin:6px 0 0 0;color:#334155">We are visionaries.</p>
+              <p style="margin:6px 0 0 0;color:#334155">Nobody can do what we do.</p>
+              <p style="margin:6px 0 0 0;color:#334155">We are bigger than the beetles.</p>
+            </div>
+          </div>
+
+          <section style="margin-top:14px">
+            <h3>About</h3>
+            <p style="color:#334155">We are of the most revolutionary minds of our time. we are not creating 'songs' we are creating experiences that will revolutionize the landscape of music production.</p>
+          </section>
+
+          <section style="margin-top:12px">
+            <h3>Members</h3>
+            <ul style="color:#334155;margin:6px 0 0 18px">
+              <li>Rex Maul — Musician Extrodinare</li>
+              <li>Mihael Perz — Master in the art of sound</li>
+            </ul>
+          </section>
+
+          <div class="neon-footer">
+            <div>Follow <a href = "https://instagram.com/peppermintboys/">@PeppermintBoys</a> On Instagram</div>
+            <div style="opacity:0.95"><a href="https://open.spotify.com/artist/5bnlD0EeU9Qrl7ApRtBDTV?si=096KeKkKTtecUETW31YLFw">Spotify</a> • <a href="https://music.apple.com/us/artist/the-peppermint-boys/1861732088">Apple</a> • <a href="https://www.youtube.com/channel/UCLLtm587SiKSH_oOI5YCHUg">Youtube</a></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- DISCOGRAPHY app -->
+      <div class="window hidden" id="win-disc" style="left:160px; top:120px;">
+        <div class="titlebar" data-drag>
+          <div class="title">Discography</div>
+          <div class="controls">
+            <button class="btn btn-close" title="Close" aria-label="Close Discography">✕</button>
+          </div>
+        </div>
+        <div class="content">
+          <h3>Releases</h3>
+          <div class="grid-3" style="margin-top:12px">
+            <div class="card">
+              <h4 style="margin:0 0 8px 0">The Year w/o a Sleigh</h4>
+              <p style="margin:0;color:#334155">Single • 12/16/2025</p>
+              <a href="https://open.spotify.com/track/3HzMmGEjx1cOFE5DROIy9e?si=12f6b40531084006">Spotify</a> • <a href="https://music.apple.com/us/song/the-year-without-a-sleigh/1861772866">Apple</a> 
+            </div>
+            <div class="card">
+              <h4 style="margin:0 0 8px 0">Snow Balls of Love</h4>
+              <p style="margin:0;color:#334155">Single • 12/22/2025</p>
+              <a href="https://open.spotify.com/track/7BoCjIU017xkTKwlqgkHJ7?si=ee777a9e4fa34dfd">Spotify</a> • <a href="https://music.apple.com/us/song/snow-balls-of-love/1863720201">Apple</a> 
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TOUR app -->
+      <div class="window hidden" id="win-tour" style="left:200px; top:160px;">
+        <div class="titlebar" data-drag>
+          <div class="title">Tour</div>
+          <div class="controls">
+            <button class="btn btn-close" title="Close" aria-label="Close Tour">✕</button>
+          </div>
+        </div>
+        <div class="content">
+          <h3>Upcoming Shows</h3>
+          <div style="display:flex;flex-direction:column;gap:12px;margin-top:12px">
+            <div class="card">
+              <strong>Dec 20 2025 — The Neon Room</strong>
+              <div style="color:#334155;margin-top:6px">Fredonia, NY</div>
+            </div>
+            <div class="card">
+              <strong>Jan 15 2026 — Electric Alley</strong>
+              <div style="color:#334155;margin-top:6px">Brooklyn, NY</div>
+            </div>
+          </div>
+
+          <div style="margin-top:12px" class="small">Add ticket links or a calendar feed here.</div>
+        </div>
+      </div>
+
+      <!-- MERCH app -->
+      <div class="window hidden" id="win-merch" style="left:240px; top:200px;">
+        <div class="titlebar" data-drag>
+          <div class="title">Merch</div>
+          <div class="controls">
+            <button class="btn btn-close" title="Close" aria-label="Close Merch">✕</button>
+          </div>
+        </div>
+        <div class="content">
+          <h3>Merch Mockups</h3>
+          <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:12px">
+            <div class="card" style="min-width:220px">
+              <strong>T-Shirt</strong>
+              <div style="height:140px;margin-top:10px;border-radius:10px;background:linear-gradient(135deg,var(--neon-pink),var(--neon-cyan));"></div>
+            </div>
+            <div class="card" style="min-width:220px">
+              <strong>Sticker Pack</strong>
+              <div style="height:140px;margin-top:10px;border-radius:10px;background:linear-gradient(135deg,var(--neon-cyan),var(--neon-pink));"></div>
+            </div>
+          </div>
+
+          <div style="margin-top:12px" class="small">Replace mockups with product images and store links.</div>
+        </div>
+      </div>
+
+      <!-- GALLERY app -->
+      <div class="window hidden" id="win-gallery" style="left:280px; top:240px;">
+        <div class="titlebar" data-drag>
+          <div class="title">Gallery</div>
+          <div class="controls">
+            <button class="btn btn-close" title="Close" aria-label="Close Gallery">✕</button>
+          </div>
+        </div>
+        <div class="content">
+          <h3>Photos & Artwork</h3>
+          <div style="display:flex;gap:12px;margin-top:12px;flex-wrap:wrap">
+            <div class="photo" style="width:320px"></div>
+            <div class="photo" style="width:220px"></div>
+            <div class="photo" style="width:220px"></div>
+          </div>
+
+          <div style="margin-top:12px" class="small">Tip: replace placeholders with your band photos.</div>
+        </div>
+      </div>
+
+      <!-- Taskbar -->
+      <div class="taskbar" id="taskbar" role="toolbar" aria-label="Taskbar">
+        <div class="task-left" id="task-left" aria-hidden="false">
+          <div class="app-icon" data-target="win-bio" title="Bio" tabindex="0">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2L15.5 8.5L22 12L15.5 15.5L12 22L8.5 15.5L2 12L8.5 8.5L12 2Z"></path></svg>
+            <div style="font-size:16px">Bio</div>
+          </div>
+
+          <div class="app-icon" data-target="win-disc" title="Discography" tabindex="0">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zM7 12h10"></path></svg>
+            <div style="font-size:16px">Music</div>
+          </div>
+
+          <div class="app-icon" data-target="win-tour" title="Tour" tabindex="0">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h18v14H3zM7 9l3 3-3 3M14 15h4"></path></svg>
+            <div style="font-size:16px">Tour</div>
+          </div>
+
+          <div class="app-icon" data-target="win-merch" title="Merch" tabindex="0">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16v13H4zM8 7V4h8v3"></path></svg>
+            <div style="font-size:16px">Merch</div>
+          </div>
+
+          <div class="app-icon" data-target="win-gallery" title="Gallery" tabindex="0">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 19V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14"></path></svg>
+            <div style="font-size:16px">Gallery</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+<script>
+  (function(){
+    const zBase = { value: 200 };
+    const windows = Array.from(document.querySelectorAll('.window'));
+    const appIcons = Array.from(document.querySelectorAll('.app-icon'));
+
+    function bringToFront(win){
+      zBase.value += 1;
+      win.style.zIndex = zBase.value;
+    }
+
+    function openWindow(id){
+      const win = document.getElementById(id);
+      if(!win) return;
+      win.classList.remove('hidden');
+      bringToFront(win);
+      clampToMain(win);
+    }
+
+    function closeWindow(win){
+      win.classList.add('hidden');
+    }
+
+    function toggleWindow(id){
+      const win = document.getElementById(id);
+      if(!win) return;
+      if(win.classList.contains('hidden')){
+        openWindow(id);
+      } else {
+        closeWindow(win);
+      }
+    }
+
+    function clampToMain(win){
+      const main = document.getElementById('main');
+      const rect = main.getBoundingClientRect();
+      const w = win.offsetWidth, h = win.offsetHeight;
+      let left = parseFloat(win.style.left);
+      let top = parseFloat(win.style.top);
+      if(isNaN(left) || isNaN(top)){
+        const r = win.getBoundingClientRect();
+        left = r.left - rect.left;
+        top = r.top - rect.top;
+      }
+      if(left < 12) left = 12;
+      if(top < 12) top = 12;
+      if(left + w > rect.width) left = Math.max(12, rect.width - w - 12);
+      if(top + h > rect.height) top = Math.max(12, rect.height - h - 12);
+      win.style.left = left + 'px';
+      win.style.top = top + 'px';
+    }
+
+    // Attach app icon handlers
+    appIcons.forEach(icon=>{
+      const target = icon.dataset.target;
+      icon.addEventListener('click', ()=> toggleWindow(target));
+      icon.addEventListener('dblclick', ()=> openWindow(target));
+      icon.addEventListener('keydown', (e)=>{
+        if(e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleWindow(target); }
+      });
+    });
+
+    // Window controls and dragging
+    windows.forEach(win=>{
+      const titlebar = win.querySelector('[data-drag]');
+      const btnClose = win.querySelector('.btn-close');
+
+      if(btnClose){
+        btnClose.addEventListener('click', (e)=>{
+          e.stopPropagation();
+          closeWindow(win);
+        });
+        btnClose.addEventListener('pointerdown', (e)=> e.stopPropagation());
+      }
+
+      // Dragging via pointer events on titlebar, ignoring clicks on controls
+      let dragging = false;
+      let startX=0, startY=0, origLeft=0, origTop=0;
+      let pointerId = null;
+
+      titlebar.addEventListener('pointerdown', (e)=>{
+        if(e.target.closest('.controls') || e.target.closest('.btn')) return;
+        e.preventDefault();
+        bringToFront(win);
+        dragging = true;
+        pointerId = e.pointerId;
+        titlebar.setPointerCapture(pointerId);
+        startX = e.clientX;
+        startY = e.clientY;
+        const rectMain = document.getElementById('main').getBoundingClientRect();
+        const rectWin = win.getBoundingClientRect();
+        origLeft = (parseFloat(win.style.left) || (rectWin.left - rectMain.left));
+        origTop = (parseFloat(win.style.top) || (rectWin.top - rectMain.top));
+      });
+
+      titlebar.addEventListener('pointermove', (e)=>{
+        if(!dragging || e.pointerId !== pointerId) return;
+        const dx = e.clientX - startX;
+        const dy = e.clientY - startY;
+        win.style.left = (origLeft + dx) + 'px';
+        win.style.top = (origTop + dy) + 'px';
+      });
+
+      function endDrag(e){
+        if(!dragging) return;
+        dragging = false;
+        try{ titlebar.releasePointerCapture(pointerId); }catch(err){}
+        pointerId = null;
+        clampToMain(win);
+      }
+
+      titlebar.addEventListener('pointerup', endDrag);
+      titlebar.addEventListener('pointercancel', endDrag);
+
+      // Bring to front when clicked anywhere in the window
+      win.addEventListener('pointerdown', ()=> bringToFront(win));
+    });
+
+    // Keyboard: Esc hides topmost visible window
+    window.addEventListener('keydown', (e)=>{
+      if(e.key === 'Escape'){
+        const visible = windows.filter(w => !w.classList.contains('hidden'));
+        if(visible.length) visible[visible.length-1].classList.add('hidden');
+      }
+    });
+
+    // Prevent accidental text selection while dragging
+    document.addEventListener('selectstart', (e)=>{
+      if(e.pointerType) e.preventDefault();
+    });
+
+    // Initialize: open Bio by default
+    openWindow('win-bio');
+
+    // Double-click desktop opens Bio
+    const desktop = document.getElementById('desktop');
+    desktop.addEventListener('dblclick', ()=> openWindow('win-bio'));
+  })();
+</script>
+</body>
+</html>
