@@ -54,7 +54,7 @@ body::before,
 .desktop {
   position:relative;
   width:100%;
-  height:100vh;
+  height:calc(100vh - 70px);
   padding:20px;
   box-sizing:border-box;
   display:flex;
@@ -113,6 +113,30 @@ body::before,
   
 
 }
+
+.scroll-ticker {
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  background: #8b0707;
+  color: #fff;
+  padding: 10px;
+  
+}
+
+.scroll-content {
+  display: inline-block;
+  color: white;
+  padding-left: 100%;
+  font-size: 50px;
+  animation: scroll 12s linear infinite;
+}
+
+@keyframes scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-100%); }
+}
+
 
 /* ============================================================
    TASKBAR
@@ -361,15 +385,21 @@ img {
 
 </head>
 <body>
-  
+  <div class="scroll-ticker"><a href = "https://docs.google.com/forms/d/e/1FAIpQLSdD64AXnUkhUiCLnfHFL9VpS4oCApbHaglf6W9BAtFjyMqgzg/viewform" class="scroll-content">
+      <div class="scroll-content">
+        VOTE MICHAEL PERZ INSTRUMENTALIST OF THE YEAR HERE
+      </div>
+  </div></a>
   <div class="neon-haze" aria-hidden="true"></div>
 
   <div class="desktop" id="desktop">
     
     <div class="brand-top" aria-hidden="false">
+      
       <div class="brand">THE PEPPERMINT BOYS</div>
       <div class="brand-sub">Bigger Than The Beetles.</div>
     </div>
+    
 
     <div class="main" id="main">
 
